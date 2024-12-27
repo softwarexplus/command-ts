@@ -34,10 +34,11 @@
         "access": "public",
         "tag": "latest"
     },
-    "devDependencies": {
-        "@types/node": "^22.5.4"
-    },
     "dependencies": {
         "colorette": "^2.0.20"
+    },
+    "devDependencies": {
+        "@types/node": "^22.10.2",
+        "discord.js": "^14.16.3"
     }
 }
