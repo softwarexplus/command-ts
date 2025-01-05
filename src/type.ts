@@ -1,23 +1,44 @@
-import { Client, ClientEvents } from "discord.js"
+import {
+    AutocompleteInteraction,
+    ChatInputCommandInteraction,
+    Client,
+    ClientEvents,
+    ContextMenuCommandInteraction,
+    RESTPostAPIApplicationCommandsJSONBody
+} from "discord.js"
 
 export type Options = {
     client: Client
-    options?: BaseOptions
-    handler?: Handler
-}
-
-export type BaseOptions = {
     debug?: boolean
-    interaction_function_name?: string
-    message_function_name?: string
-    handler?: HandlerFunction
+    event_path?: string
+    command_path?: string
+    component_path?: string
+    message_validator?: MessageCommandValidator
+    interaction_validator?: InteractionCommandValidator
 }
 
-export type HandlerFunction = {
-    interaction?: (interaction: ClientEvents["interactionCreate"][0], stop: () => void) => any
-    message?: (message: ClientEvents["messageCreate"][0], stop: () => void) => any
+export type Command = {
+    data: RESTPostAPIApplicationCommandsJSONBody
+    autocomplete?: (interaction: AutocompleteInteraction) => any
+    run?: (interaction: ChatInputCommandInteraction | ContextMenuCommandInteraction) => any
+    execute?: (message: ClientEvents["messageCreate"][0]) => any
 }
 
+export type StopFunction = (reason?: string) => void
+
+export type MessageCommandValidator = (
+    command: Command,
+    message: ClientEvents["messageCreate"][0],
+    stop: StopFunction
+) => any
+
+export type InteractionCommandValidator = (
+    command: Command,
+    interaction: ClientEvents["interactionCreate"][0],
+    stop: StopFunction
+) => any
+
+/*
 export type Handler = {
     events?: string
     commands?: string | CommandHandler
@@ -42,3 +63,4 @@ export type SelectMenuComponentHandler = {
     MentionableSelectMenu?: string
     ChannelSelectMenu?: string
 }
+*/
