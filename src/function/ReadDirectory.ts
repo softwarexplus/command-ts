@@ -15,7 +15,6 @@ function get_all_files(BasePath: PathLike): Array<string> {
 
         return result.map((file) => file.replace(/\\/g, "/"))
     } catch (error) {
-        debug.error(error)
         throw error
     }
 }
@@ -24,7 +23,7 @@ export function ReadDirectory(path: PathLike): Array<string> {
     try {
         return get_all_files(path).map((file) => file.replace(`${path.toString()}/`, ""))
     } catch (error) {
-        debug.error(error)
+        error instanceof Error ? debug.error(error.message) : debug.error(error)
         throw error
     }
 }
