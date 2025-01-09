@@ -1,21 +1,41 @@
 import {
     AutocompleteInteraction,
+    ChannelSelectMenuInteraction,
     ChatInputCommandInteraction,
     Client,
     ClientEvents,
     ContextMenuCommandInteraction,
-    RESTPostAPIApplicationCommandsJSONBody
+    MentionableSelectMenuInteraction,
+    RESTPostAPIApplicationCommandsJSONBody,
+    RoleSelectMenuInteraction,
+    StringSelectMenuInteraction,
+    UserSelectMenuInteraction,
+    ModalSubmitInteraction,
+    ButtonInteraction
 } from "discord.js"
 
 export type Options = {
     client: Client
     debug?: boolean
-    event_path?: string
-    command_path?: string
-    component_path?: string
+    event?: Path<string, (event: ClientEvents[keyof ClientEvents]) => any>
+    command?: Path<string, (interaction: ChatInputCommandInteraction | ContextMenuCommandInteraction) => any>
+    button?: Path<string, (interaction: ButtonInteraction) => any>
+    modal?: Path<string, (interaction: ModalSubmitInteraction) => any>
+    selectmenu?: SelectMenu | string
     message_validator?: MessageCommandValidator
     interaction_validator?: InteractionCommandValidator
 }
+
+export type SelectMenu = {
+    StringSelectMenu?: Path<string, (interaction: StringSelectMenuInteraction) => any>
+    UserSelectMenu?: Path<string, (interaction: UserSelectMenuInteraction) => any>
+    RoleSelectMenu?: Path<string, (interaction: RoleSelectMenuInteraction) => any>
+    MentionableSelectMenu?: Path<string, (interaction: MentionableSelectMenuInteraction) => any>
+    ChannelSelectMenu?: Path<string, (interaction: ChannelSelectMenuInteraction) => any>
+}
+
+export type Path<key extends string, value extends any> = Map<key, value> | string
+export type StopFunction = (reason?: string) => void
 
 export type Command = {
     data: RESTPostAPIApplicationCommandsJSONBody
@@ -23,8 +43,6 @@ export type Command = {
     run?: (interaction: ChatInputCommandInteraction | ContextMenuCommandInteraction) => any
     execute?: (message: ClientEvents["messageCreate"][0]) => any
 }
-
-export type StopFunction = (reason?: string) => void
 
 export type MessageCommandValidator = (
     command: Command,
