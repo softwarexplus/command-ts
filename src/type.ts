@@ -17,8 +17,8 @@ import {
 export type Options = {
     client: Client
     debug?: boolean
-    event?: Path<string, (event: ClientEvents[keyof ClientEvents]) => any>
-    command?: Path<string, (interaction: ChatInputCommandInteraction | ContextMenuCommandInteraction) => any>
+    events?: Path<keyof ClientEvents, (...arg: any) => any>
+    commands?: Path<string, (interaction: ChatInputCommandInteraction | ContextMenuCommandInteraction) => any>
     button?: Path<string, (interaction: ButtonInteraction) => any>
     modal?: Path<string, (interaction: ModalSubmitInteraction) => any>
     selectmenu?: SelectMenu | string

@@ -1,5 +1,6 @@
 import { blue, green, yellow, red, gray } from "colorette"
 import { IsDebugEnabled } from "../handler"
+import { inspect } from "node:util"
 
 export const enum LogLevel {
     DEBUG = 0,
@@ -50,15 +51,16 @@ const shouldLog = (level: string, config: LoggerConfig): boolean => {
     return levelMap[level] >= config.minLevel
 }
 
-const formatMessage = (message: unknown): string => {
-    if (message instanceof Error) return `${message.message}\n${message.stack}`
-    if (typeof message === "object") return JSON.stringify(message, null, 4)
-    return String(message)
-}
-
-const formatArgs = (args: unknown[]): string => {
+const formatArgs = (args: unknown[]) => {
     if (args.length === 0) return ""
-    return args.map((arg) => `\n${typeof arg === "object" ? JSON.stringify(arg, null, 4) : String(arg)}`).join("")
+    let str = ""
+
+    for (const obj of args) {
+        str += inspect(obj, { colors: true, depth: Infinity })
+        str += " "
+    }
+
+    return str
 }
 
 const createLog =
@@ -67,11 +69,10 @@ const createLog =
         if (shouldLog(level, config)) {
             const timestamp = getTimestamp(config)
             const levelStr = color(`[${level}]`)
-            const formattedMessage = formatMessage(message)
             const formattedArgs = formatArgs(args)
 
             if (IsDebugEnabled) {
-                console.log(`${blue(timestamp)} ${levelStr} ${formattedMessage}${formattedArgs}`)
+                console.log(`${blue(timestamp)} ${levelStr} ${message} ${formattedArgs}`)
             }
         }
     }

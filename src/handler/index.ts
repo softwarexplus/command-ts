@@ -12,8 +12,8 @@ export let IsDebugEnabled = false
 export function handler({
     debug: dbg,
     client,
-    event,
-    command,
+    events,
+    commands,
     button,
     modal,
     selectmenu,
@@ -21,11 +21,19 @@ export function handler({
     message_validator
 }: Options) {
     IsDebugEnabled = typeof dbg === "boolean" ? dbg : false
-    if (!client) throw new CTSError("Client is required")
-    if (client instanceof Client === false) throw new CTSError("Client must be an instance of Discord.Client")
 
-    if (event) event_handler(event, client)
-    if (command) command_handler(command, client)
+    if (!client) {
+        debug.error("Client is required", { received: client })
+        throw new CTSError("Client is required")
+    }
+
+    if (client instanceof Client === false) {
+        debug.error("Client must be an instance of Discord.Client", { received: client })
+        throw new CTSError("Client must be an instance of Discord.Client")
+    }
+
+    if (events) event_handler(events, client)
+    if (commands) command_handler(commands, client)
     if (button) button_handler(button, client)
     if (modal) modal_handler(modal, client)
     if (selectmenu) selectmenu_handler(selectmenu, client)
