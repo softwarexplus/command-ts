@@ -1,19 +1,18 @@
-import { Client } from "discord.js"
-import { CTSError, debug } from "../function"
-import { Options } from "../type"
-import { event_handler } from "./event"
-import { button_handler } from "./button"
-import { command_handler } from "./command"
-import { modal_handler } from "./modal"
 import { selectmenu_handler } from "./selectmenu"
+import { CTSError, debug } from "../function"
+import { command_handler } from "./command"
+import { button_handler } from "./button"
+import { event_handler } from "./event"
+import { modal_handler } from "./modal"
+import { Options } from "../type"
 
 export let IsDebugEnabled = false
 
 export function handler({
     debug: dbg,
     client,
-    events,
-    commands,
+    event,
+    command,
     button,
     modal,
     selectmenu,
@@ -27,8 +26,8 @@ export function handler({
         throw new CTSError("Client is required")
     }
 
-    if (events) event_handler(events, client)
-    if (commands) command_handler(commands, client)
+    if (event) event_handler(event, client)
+    if (command) command_handler(command, client)
     if (button) button_handler(button, client)
     if (modal) modal_handler(modal, client)
     if (selectmenu) selectmenu_handler(selectmenu, client)
