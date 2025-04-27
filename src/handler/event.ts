@@ -1,9 +1,10 @@
 import { Client } from "discord.js"
 import { Options } from "../type"
-import { CTSError, debug } from "../function"
+import { CTSError, debug, get_all_files } from "../function"
 import { isMap } from "lodash"
+import { join } from "node:path"
 
-export function event_handler(data: Options["events"], client: Client) {
+export function event_handler(data: NonNullable<Options["events"]>, client: Client) {
     debug.info("Event handler loaded")
     if (isMap(data)) {
         data.forEach((fn, name) => {
@@ -15,5 +16,7 @@ export function event_handler(data: Options["events"], client: Client) {
             }
         })
     } else {
+        const dir = get_all_files(join(__dirname, data))
+        console.log(dir)
     }
 }

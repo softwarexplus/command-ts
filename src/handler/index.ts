@@ -27,11 +27,6 @@ export function handler({
         throw new CTSError("Client is required")
     }
 
-    if (client instanceof Client === false) {
-        debug.error("Client must be an instance of Discord.Client", { received: client })
-        throw new CTSError("Client must be an instance of Discord.Client")
-    }
-
     if (events) event_handler(events, client)
     if (commands) command_handler(commands, client)
     if (button) button_handler(button, client)

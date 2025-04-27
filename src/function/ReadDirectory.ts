@@ -2,7 +2,7 @@ import { PathLike, readdirSync, statSync } from "node:fs"
 import { join } from "node:path"
 import { debug } from "./debug"
 
-function get_all_files(BasePath: PathLike): Array<string> {
+export function get_all_files(BasePath: PathLike): Array<string> {
     try {
         let result: Array<string> = []
         const files = readdirSync(BasePath)

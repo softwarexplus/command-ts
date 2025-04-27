@@ -17,24 +17,29 @@ import {
 export type Options = {
     client: Client
     debug?: boolean
-    events?: Path<keyof ClientEvents, (...arg: any) => any>
-    commands?: Path<string, (interaction: ChatInputCommandInteraction | ContextMenuCommandInteraction) => any>
-    button?: Path<string, (interaction: ButtonInteraction) => any>
-    modal?: Path<string, (interaction: ModalSubmitInteraction) => any>
+    events?: PathOR<keyof ClientEvents, (...arg: any) => any>
+    commands?: PathOR<string, (interaction: ChatInputCommandInteraction | ContextMenuCommandInteraction) => any>
+    button?: PathOR<string, (interaction: ButtonInteraction) => any>
+    modal?: PathOR<string, (interaction: ModalSubmitInteraction) => any>
     selectmenu?: SelectMenu | string
     message_validator?: MessageCommandValidator
     interaction_validator?: InteractionCommandValidator
 }
 
+// export type Commands = {
+//     ChatInput?: PathOR<string, (interaction: ChatInputCommandInteraction) => any>
+//     Context?: PathOR<string, (interaction: ContextMenuCommandInteraction) => any>
+// }
+
 export type SelectMenu = {
-    StringSelectMenu?: Path<string, (interaction: StringSelectMenuInteraction) => any>
-    UserSelectMenu?: Path<string, (interaction: UserSelectMenuInteraction) => any>
-    RoleSelectMenu?: Path<string, (interaction: RoleSelectMenuInteraction) => any>
-    MentionableSelectMenu?: Path<string, (interaction: MentionableSelectMenuInteraction) => any>
-    ChannelSelectMenu?: Path<string, (interaction: ChannelSelectMenuInteraction) => any>
+    StringSelectMenu?: PathOR<string, (interaction: StringSelectMenuInteraction) => any>
+    UserSelectMenu?: PathOR<string, (interaction: UserSelectMenuInteraction) => any>
+    RoleSelectMenu?: PathOR<string, (interaction: RoleSelectMenuInteraction) => any>
+    MentionableSelectMenu?: PathOR<string, (interaction: MentionableSelectMenuInteraction) => any>
+    ChannelSelectMenu?: PathOR<string, (interaction: ChannelSelectMenuInteraction) => any>
 }
 
-export type Path<key extends string, value extends any> = Map<key, value> | string
+export type PathOR<key extends string, value extends any> = Map<key, value> | string
 export type StopFunction = (reason?: string) => void
 
 export type Command = {
