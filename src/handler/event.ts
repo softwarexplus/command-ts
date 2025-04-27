@@ -1,6 +1,6 @@
 import { Client } from "discord.js"
 import { Options } from "../type"
-import { CTSError, debug, get_all_files } from "../function"
+import { CTSError, debug, ReadDirectory } from "../function"
 import { isMap } from "lodash"
 import { join } from "node:path"
 
@@ -16,7 +16,7 @@ export function event_handler(data: NonNullable<Options["events"]>, client: Clie
             }
         })
     } else {
-        const dir = get_all_files(join(__dirname, data))
+        const dir = ReadDirectory(data)
         console.log(dir)
     }
 }

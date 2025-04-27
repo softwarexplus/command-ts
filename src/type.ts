@@ -60,6 +60,7 @@ export type InteractionCommandValidator = (
     interaction: ClientEvents["interactionCreate"][0],
     stop: StopFunction
 ) => any
+export type TreeNode = { type: "file" } | { type: "folder"; children: Record<string, TreeNode> }
 
 /*
 export type Handler = {

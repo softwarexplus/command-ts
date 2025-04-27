@@ -63,19 +63,23 @@ const formatArgs = (args: unknown[]) => {
     return str
 }
 
-const createLog =
-    (config: LoggerConfig) =>
-    (level: string, color: (str: string) => string, message: unknown, ...args: unknown[]): void => {
+const createLog = (config: LoggerConfig) => {
+    return (
+        level: keyof typeof LogLevel,
+        color: (str: string) => string,
+        message: unknown,
+        ...args: unknown[]
+    ): void => {
         if (shouldLog(level, config)) {
             const timestamp = getTimestamp(config)
             const levelStr = color(`[${level}]`)
             const formattedArgs = formatArgs(args)
 
-            if (IsDebugEnabled) {
-                console.log(`${blue(timestamp)} ${levelStr} ${message} ${formattedArgs}`)
-            }
+            if (IsDebugEnabled) console.log(`${blue(timestamp)} ${levelStr} ${message} ${formattedArgs}`)
+            if (level === "WARN") process.emitWarning(`${message}`)
         }
     }
+}
 
 const createLogger = (customConfig: Partial<LoggerConfig> = {}) => {
     const config = { ...defaultConfig, ...customConfig }

@@ -1,7 +1,5 @@
-import { debug } from "./debug"
-
 export class CTSError extends Error {
-    constructor(message: string, ...args: unknown[]) {
+    constructor(message: string) {
         super(message)
         this.name = "CTSError"
     }
