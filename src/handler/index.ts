@@ -21,7 +21,7 @@ export function handler({ debug: dbg, client, event, command, button, modal, sel
     if (modal) modal_handler(modal, client)
     if (selectmenu) selectmenu_handler(selectmenu, client)
     if (command) command_handler(command, client, middleware)
-    debug.info("Handler loaded")
+    debug.info("All Handler loaded")
     // if (interaction_validator) interaction_validator_handler(interaction_validator, client)
     // if (message_validator) message_validator_handler(message_validator, client)
 }

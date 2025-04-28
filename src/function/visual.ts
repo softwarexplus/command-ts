@@ -1,8 +1,8 @@
-import { cyan, yellow, magenta } from "colorette"
+import { cyan, magenta } from "colorette"
 import path from "path"
 
-export function GenerateList(filePaths: string[], srcDir: string): string {
-    const event: string[] = []
+export function GenerateList(type: string, filePaths: string[], srcDir: string): string {
+    const x: string[] = []
     const commandCount = filePaths.length
 
     // Create directory structure from file paths
@@ -44,7 +44,7 @@ export function GenerateList(filePaths: string[], srcDir: string): string {
             if (dir === "__files") continue
 
             const indent = "  ".repeat(level)
-            event.push(`${indent}├─ ${cyan(dir)}`)
+            x.push(`${indent}├─ ${cyan(dir)}`)
 
             // Process subdirectories and files
             processStructure(structure[dir], level + 1)
@@ -54,7 +54,7 @@ export function GenerateList(filePaths: string[], srcDir: string): string {
         if (structure.__files) {
             const indent = "  ".repeat(level)
             for (const file of structure.__files) {
-                event.push(`${indent}├─ ${yellow(file)}`)
+                x.push(`${indent}├─ ${cyan(file)}`)
             }
         }
     }
@@ -63,7 +63,7 @@ export function GenerateList(filePaths: string[], srcDir: string): string {
     processStructure(directoryStructure)
 
     // Add summary at the beginning
-    event.unshift(`Loaded ${magenta(commandCount.toString())} event:`)
+    x.unshift(`Loaded ${magenta(commandCount.toString())} ${type}:`)
 
-    return event.join("\n")
+    return x.join("\n")
 }

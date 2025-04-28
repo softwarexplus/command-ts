@@ -17,15 +17,19 @@ export function ftc_event(data: string) {
         for (const EventFilePath of EventFilePaths) {
             const obj = require(EventFilePath)
             const fn = typeof obj === "function" ? obj : obj.default
-            if (typeof fn === "function") {
-                FilePaths.push(EventFilePath)
-                fun.push(fn)
+
+            if (typeof fn !== "function") {
+                debug.warn(`Ignoring: Event ${EventFilePath} does not export a function.`, { obj })
+                continue
             }
+
+            FilePaths.push(EventFilePath)
+            fun.push(fn)
         }
 
         event.set(eventName as any, fun)
     }
 
-    debug.info(`${GenerateList(FilePaths, data)}`)
+    debug.info(`${GenerateList("events", FilePaths, data)}`)
     return event
 }
