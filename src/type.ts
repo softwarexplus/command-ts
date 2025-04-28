@@ -22,8 +22,7 @@ export type Options = {
     button?: PathOR<string, (interaction: ButtonInteraction) => any>
     modal?: PathOR<string, (interaction: ModalSubmitInteraction) => any>
     selectmenu?: SelectMenu | string
-    message_validator?: MessageCommandValidator
-    interaction_validator?: InteractionCommandValidator
+    middleware?: Array<Middleware> | Middleware
 }
 
 // export type Commands = {
@@ -46,21 +45,13 @@ export type Command = {
     data: RESTPostAPIApplicationCommandsJSONBody
     autocomplete?: (interaction: AutocompleteInteraction) => any
     run?: (interaction: ChatInputCommandInteraction | ContextMenuCommandInteraction) => any
-    execute?: (message: ClientEvents["messageCreate"][0]) => any
 }
 
-export type MessageCommandValidator = (
-    command: Command,
-    message: ClientEvents["messageCreate"][0],
-    stop: StopFunction
-) => any
-
-export type InteractionCommandValidator = (
+export type Middleware = (
     command: Command,
     interaction: ClientEvents["interactionCreate"][0],
     stop: StopFunction
 ) => any
-export type TreeNode = { type: "file" } | { type: "folder"; children: Record<string, TreeNode> }
 
 /*
 export type Handler = {

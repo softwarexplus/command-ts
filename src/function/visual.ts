@@ -1,38 +1,7 @@
-import { GetFolderPaths, GetFilePaths, debug } from "../../function"
 import { cyan, yellow, magenta } from "colorette"
-import { ClientEvents } from "discord.js"
 import path from "path"
 
-export function FetchFunction(data: string) {
-    const eventFolderPaths = GetFolderPaths(data)
-    const filePaths = []
-    const event = new Map<keyof ClientEvents, Array<(...arg: any) => any>>()
-
-    for (const eventFolderPath of eventFolderPaths) {
-        const eventName = eventFolderPath.replace(/\\/g, "/").split("/").pop() as string
-
-        const eventFilePaths = GetFilePaths(eventFolderPath, true).filter(
-            (path) => path.endsWith(".js") || path.endsWith(".ts")
-        )
-
-        const fun: Array<(...arg: any) => any> = []
-        for (const eventFilePath of eventFilePaths) {
-            const obj = require(eventFilePath)
-            const fn = typeof obj === "function" ? obj : obj.default
-            if (typeof fn === "function") {
-                filePaths.push(eventFilePath)
-                fun.push(fn)
-            }
-        }
-
-        event.set(eventName as any, fun)
-    }
-
-    debug.info(`${GenerateList(filePaths, data)}`)
-    return event
-}
-
-function GenerateList(filePaths: string[], srcDir: string): string {
+export function GenerateList(filePaths: string[], srcDir: string): string {
     const event: string[] = []
     const commandCount = filePaths.length
 

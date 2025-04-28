@@ -8,17 +8,7 @@ import { Options } from "../type"
 
 export let IsDebugEnabled = false
 
-export function handler({
-    debug: dbg,
-    client,
-    event,
-    command,
-    button,
-    modal,
-    selectmenu,
-    interaction_validator,
-    message_validator
-}: Options) {
+export function handler({ debug: dbg, client, event, command, button, modal, selectmenu, middleware }: Options) {
     IsDebugEnabled = typeof dbg === "boolean" ? dbg : false
 
     if (!client) {
@@ -27,10 +17,10 @@ export function handler({
     }
 
     if (event) event_handler(event, client)
-    if (command) command_handler(command, client)
     if (button) button_handler(button, client)
     if (modal) modal_handler(modal, client)
     if (selectmenu) selectmenu_handler(selectmenu, client)
+    if (command) command_handler(command, client, middleware)
     debug.info("Handler loaded")
     // if (interaction_validator) interaction_validator_handler(interaction_validator, client)
     // if (message_validator) message_validator_handler(message_validator, client)

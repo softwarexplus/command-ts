@@ -2,45 +2,45 @@ import { readdirSync } from "node:fs"
 import { join } from "node:path"
 
 export function GetFilePaths(directory: string, nesting?: boolean): string[] {
-    let filePaths: string[] = []
+    let file_paths: string[] = []
 
-    if (!directory) return filePaths
+    if (!directory) return file_paths
 
     const files = readdirSync(directory, { withFileTypes: true })
 
     for (const file of files) {
-        const filePath = join(directory, file.name)
+        const file_path = join(directory, file.name)
 
         if (file.isFile()) {
-            filePaths.push(filePath)
+            file_paths.push(file_path)
         }
 
         if (nesting && file.isDirectory()) {
-            filePaths = [...filePaths, ...GetFilePaths(filePath, true)]
+            file_paths = [...file_paths, ...GetFilePaths(file_path, true)]
         }
     }
 
-    return filePaths
+    return file_paths
 }
 
 export function GetFolderPaths(directory: string, nesting?: boolean): string[] {
-    let folderPaths: string[] = []
+    let folder_paths: string[] = []
 
-    if (!directory) return folderPaths
+    if (!directory) return folder_paths
 
     const folders = readdirSync(directory, { withFileTypes: true })
 
     for (const folder of folders) {
-        const folderPath = join(directory, folder.name)
+        const folder_path = join(directory, folder.name)
 
         if (folder.isDirectory()) {
-            folderPaths.push(folderPath)
+            folder_paths.push(folder_path)
 
             if (nesting) {
-                folderPaths = [...folderPaths, ...GetFolderPaths(folderPath, true)]
+                folder_paths = [...folder_paths, ...GetFolderPaths(folder_path, true)]
             }
         }
     }
 
-    return folderPaths
+    return folder_paths
 }
