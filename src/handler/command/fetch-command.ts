@@ -1,5 +1,4 @@
-import { GetFolderPaths, GetFilePaths, debug, GenerateList } from "../../function"
-import { ClientEvents } from "discord.js"
+import { GetFilePaths, debug, GenerateList } from "../../function"
 import { Command } from "../../type"
 
 export function ftc_command(data: string) {
@@ -21,6 +20,8 @@ export function ftc_command(data: string) {
         commands.set(command.data.name, command)
     }
 
-    debug.info(`${GenerateList("commands", files, data)}`)
+    debug.debug(`${GenerateList("commands", files, data)}`)
+    debug.debug(`Found ${commands.size} commands`, { commands })
+
     return commands
 }

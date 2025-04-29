@@ -11,7 +11,8 @@ import {
     StringSelectMenuInteraction,
     UserSelectMenuInteraction,
     ModalSubmitInteraction,
-    ButtonInteraction
+    ButtonInteraction,
+    CommandInteraction
 } from "discord.js"
 
 export type Options = {
@@ -47,11 +48,7 @@ export type Command = {
     run: (interaction: ChatInputCommandInteraction | ContextMenuCommandInteraction) => any
 }
 
-export type Middleware = (
-    command: Command,
-    interaction: ClientEvents["interactionCreate"][0],
-    stop: StopFunction
-) => any
+export type Middleware = (command: Command, interaction: CommandInteraction, stop: StopFunction) => any
 
 /*
 export type Handler = {

@@ -30,6 +30,6 @@ export function ftc_event(data: string) {
         event.set(eventName as any, fun)
     }
 
-    debug.info(`${GenerateList("events", FilePaths, data)}`)
+    debug.debug(`${GenerateList("events", FilePaths, data)}`)
     return event
 }
