@@ -5,11 +5,17 @@ import { button_handler } from "./button"
 import { event_handler } from "./event"
 import { modal_handler } from "./modal"
 import { Options } from "../type"
+import { version } from "discord.js"
 
 export let IsDebugEnabled = false
 
 export function handler({ debug: dbg, client, event, command, button, modal, selectmenu, middleware }: Options) {
+    const djs = Number(version.split(".").reduce((x, y, i) => (i === 2 ? x : `${x}.${y}`)))
     IsDebugEnabled = typeof dbg === "boolean" ? dbg : false
+
+    if (djs < 14 || djs > 15) {
+        debug.warn("Your discord.js version might not be fully supported by command-ts handler")
+    }
 
     if (!client) {
         debug.error("Client is required", { received: client })
