@@ -4,7 +4,7 @@ import { debug } from "../../function"
 import { register } from "./register"
 import { Options } from "../../type"
 import { execute } from "./execute"
-import { Client } from "discord.js"
+import { Client, InteractionType } from "discord.js"
 import { isMap } from "lodash"
 
 export function command_handler(
@@ -17,6 +17,7 @@ export function command_handler(
 
     client.on("ready", async (client) => await register(commands, client))
     client.on("interactionCreate", async (interaction) => {
+        debug.info(`Command handler triggered`, { id: interaction.id, type: InteractionType[interaction.type] })
         await execute(commands, interaction, middleware ?? ([] as any))
         await autocomplete(commands, interaction)
     })

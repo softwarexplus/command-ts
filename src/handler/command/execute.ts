@@ -15,31 +15,34 @@ export async function execute(commands: Map<string, Command>, interaction: Inter
 
     if (middleware && middleware.length) {
         let ShouldStop = false
-        let Reason
+        let reason
 
         const stop: StopFunction = (text?: string) => {
             ShouldStop = true
             if (text) {
-                Reason = text
+                reason = text
             } else {
-                Reason = "No reason provided"
+                reason = "No reason provided"
             }
         }
 
-        for (const fn of middleware) {
+        let index = 0
+
+        for (; index < middleware.length; index++) {
+            const fn = middleware[index]
             await fn(command, interaction, stop)
             if (ShouldStop) break
         }
 
         if (ShouldStop) {
-            return debug.info(`Middleware stopped command ${interaction.commandName}`, { Reason })
+            return debug.info(`A middleware stopped execution`, { index, reason })
         }
     }
 
     try {
         await run(interaction)
     } catch (error) {
-        debug.error(`Error in command ${interaction.commandName}`)
+        debug.error(`Error in command ${interaction.commandName} (${interaction.id})`, { error })
         throw error
     }
 }

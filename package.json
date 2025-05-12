@@ -1,6 +1,6 @@
 {
     "name": "command-ts",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "A package for handling discord.js commands with TypeScript.",
     "author": "softwarexplus",
     "homepage": "https://github.com/softwarexplus/command-ts#readme",
