@@ -40,7 +40,7 @@
     },
     "devDependencies": {
         "@types/lodash": "^4.17.14",
-        "@types/node": "^22.10.5",
+        "@types/node": "^24.0.4",
         "discord.js": "^14.17.2"
     }
 }
