@@ -12,7 +12,8 @@ import {
     UserSelectMenuInteraction,
     ModalSubmitInteraction,
     ButtonInteraction,
-    CommandInteraction
+    CommandInteraction,
+    PrimaryEntryPointCommandInteraction
 } from "discord.js"
 
 export type Options = {
@@ -45,7 +46,9 @@ export type StopFunction = (reason?: string) => void
 export type Command = {
     data: RESTPostAPIApplicationCommandsJSONBody
     autocomplete?: (interaction: AutocompleteInteraction) => any
-    run: (interaction: ChatInputCommandInteraction | ContextMenuCommandInteraction) => any
+    run: (
+        interaction: ChatInputCommandInteraction | ContextMenuCommandInteraction | PrimaryEntryPointCommandInteraction
+    ) => any
 }
 
 export type Middleware = (command: Command, interaction: CommandInteraction, stop: StopFunction) => any
