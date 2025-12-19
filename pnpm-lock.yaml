@@ -20,7 +20,7 @@ importers:
         version: 4.17.21
       '@types/node':
         specifier: ^25.0.0
-        version: 25.0.0
+        version: 25.0.3
       discord.js:
         specifier: ^14.17.2
         version: 14.25.1
@@ -70,8 +70,8 @@ packages:
   '@types/lodash@4.17.21':
     resolution: {integrity: sha512-FOvQ0YPD5NOfPgMzJihoT+Za5pdkDJWcbpuj1DjaKZIr/gxodQjY/uWEFlTNqW2ugXHUiL8lRQgw63dzKHZdeQ==}
 
-  '@types/node@25.0.0':
-    resolution: {integrity: sha512-rl78HwuZlaDIUSeUKkmogkhebA+8K1Hy7tddZuJ3D0xV8pZSfsYGTsliGUol1JPzu9EKnTxPC4L1fiWouStRew==}
+  '@types/node@25.0.3':
+    resolution: {integrity: sha512-W609buLVRVmeW693xKfzHeIV6nJGGz98uCPfeXI1ELMLXVeKYZ9m15fAMSaUPBHYLGFsVRcMmSCksQOrZV9BYA==}
 
   '@types/ws@8.18.1':
     resolution: {integrity: sha512-ThVF6DCVhA8kUGy+aazFQ4kXQ7E1Ty7A3ypFOe0IcJV8O/M511G99AW24irKrW56Wt44yG9+ij8FaqoBGkuBXg==}
@@ -189,13 +189,13 @@ snapshots:
 
   '@types/lodash@4.17.21': {}
 
-  '@types/node@25.0.0':
+  '@types/node@25.0.3':
     dependencies:
       undici-types: 7.16.0
 
   '@types/ws@8.18.1':
     dependencies:
-      '@types/node': 25.0.0
+      '@types/node': 25.0.3
 
   '@vladfrangu/async_event_emitter@2.4.7': {}
 
