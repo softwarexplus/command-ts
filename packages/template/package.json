@@ -1,0 +1,22 @@
+{
+    "name": "@command-ts/template",
+    "version": "0.0.1",
+    "description": "A template package for command-ts monorepo",
+    "main": "out/index.js",
+    "types": "out/index.d.ts",
+    "license": "MIT",
+    "scripts": {
+        "fmt": "prettier --config=../../.prettierrc --write src/",
+        "lint": "prettier --config=../../.prettierrc --check src/",
+        "build": "(node --eval \"require('node:fs').rmSync('out', { recursive: true, force: true })\" || true) && tsc",
+        "test": "tsc --noEmit",
+        "dev": "tsc --watch"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "devDependencies": {
+        "@types/node": "^25.0.0",
+        "typescript": "^5.7.2"
+    }
+}

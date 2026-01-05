@@ -1,0 +1,47 @@
+{
+    "name": "command-ts",
+    "version": "0.0.2",
+    "description": "A package for handling discord.js commands with TypeScript.",
+    "author": "xcfio",
+    "homepage": "https://github.com/xcfio/command-ts#readme",
+    "main": "out/index.js",
+    "license": "MIT",
+    "scripts": {
+        "fmt": "prettier --config=../../.prettierrc --write src/",
+        "lint": "prettier --config=../../.prettierrc --check src/",
+        "build": "(node --eval \"require('node:fs').rmSync('out', { recursive: true, force: true })\" || true) && tsc",
+        "test": "tsc --noEmit",
+        "dev": "tsc --watch"
+    },
+    "keywords": [
+        "discord",
+        "discord.js",
+        "command-ts"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/xcfio/command-ts"
+    },
+    "bugs": {
+        "url": "https://github.com/xcfio/command-ts/issues",
+        "email": "omarfaruksxp@gmail.com"
+    },
+    "funding": {
+        "type": "patreon",
+        "url": "https://www.patreon.com/xcfio"
+    },
+    "publishConfig": {
+        "access": "public",
+        "tag": "latest"
+    },
+    "dependencies": {
+        "colorette": "^2.0.20",
+        "lodash": "^4.17.21"
+    },
+    "devDependencies": {
+        "@types/lodash": "^4.17.14",
+        "@types/node": "^25.0.0",
+        "discord.js": "^14.17.2",
+        "typescript": "^5.7.2"
+    }
+}

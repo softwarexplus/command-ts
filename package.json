@@ -1,46 +1,17 @@
 {
     "name": "command-ts",
-    "version": "0.0.2",
-    "description": "A package for handling discord.js commands with TypeScript.",
-    "author": "softwarexplus",
-    "homepage": "https://github.com/softwarexplus/command-ts#readme",
-    "main": "out/index.js",
-    "license": "MIT",
+    "private": true,
+    "packageManager": "pnpm@10.27.0",
     "scripts": {
-        "fmt": "prettier --config=.prettierrc --write src/",
-        "lint": "prettier --config=.prettierrc --check src/",
-        "build": "(node --eval \"require('node:fs').rmSync('out', { recursive: true, force: true })\" || true) && tsc",
-        "test": "tsc --noEmit",
-        "dev": "tsc --watch"
-    },
-    "keywords": [
-        "discord",
-        "discord.js",
-        "command-ts"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/softwarexplus/command-ts"
-    },
-    "bugs": {
-        "url": "https://github.com/softwarexplus/command-ts/issues",
-        "email": "SoftwareXPlus@gmail.com"
-    },
-    "funding": {
-        "type": "patreon",
-        "url": "https://www.patreon.com/xcfio"
-    },
-    "publishConfig": {
-        "access": "public",
-        "tag": "latest"
-    },
-    "dependencies": {
-        "colorette": "^2.0.20",
-        "lodash": "^4.17.21"
+        "build": "turbo run build",
+        "dev": "turbo run dev",
+        "test": "turbo run test",
+        "lint": "turbo run lint",
+        "fmt": "turbo run fmt"
     },
     "devDependencies": {
-        "@types/lodash": "^4.17.14",
-        "@types/node": "^25.0.0",
-        "discord.js": "^14.17.2"
+        "@types/node": "^25.0.3",
+        "turbo": "^2.7.2",
+        "typescript": "^5.9.3"
     }
 }

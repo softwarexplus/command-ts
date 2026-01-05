@@ -1,15 +1,19 @@
-name: Publish package
+name: Dev Build
 
 on:
-    release:
-        types: created
+    push:
+        branches:
+            - "**"
+        paths-ignore:
+            - "**.md"
+            - "LICENSE"
 
 jobs:
-    Publish:
+    build:
         runs-on: ubuntu-latest
 
         permissions:
-            contents: write
+            contents: read
             id-token: write
 
         steps:
@@ -33,12 +37,24 @@ jobs:
             - name: Build
               run: node --run build
 
-            - name: Publish packages
+            - name: Lint
+              run: node --run lint
+
+            - name: Generate dev version
+              id: version
+              run: echo "DEV_VERSION=dev.$(date +'%Y%m%d%H%M%S')" >> $GITHUB_OUTPUT
+
+            - name: Publish dev packages
               run: |
                   for dir in packages/*/; do
                     if [ -f "$dir/package.json" ]; then
-                      echo "Publishing $dir..."
-                      pnpm --filter "./$dir" publish --provenance --no-git-checks || true
+                      cd "$dir"
+                      CURRENT_VERSION=$(node -p "require('./package.json').version")
+                      DEV_VERSION="${CURRENT_VERSION}-${{ steps.version.outputs.DEV_VERSION }}"
+                      echo "Publishing $dir with version $DEV_VERSION..."
+                      npm version "$DEV_VERSION" --no-git-tag-version
+                      pnpm publish --provenance --no-git-checks --tag dev || true
+                      cd ../..
                     fi
                   done
               env:
