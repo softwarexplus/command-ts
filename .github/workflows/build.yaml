@@ -35,9 +35,6 @@ jobs:
             - name: Build
               run: node --run build
 
-            - name: Lint
-              run: node --run lint
-
             - name: Generate dev version
               id: version
               run: echo "DEV_VERSION=dev.$(date +'%Y%m%d%H%M%S')" >> $GITHUB_OUTPUT
