@@ -2,8 +2,9 @@
     "name": "@command-ts/template",
     "version": "0.0.1",
     "description": "A template package for command-ts monorepo",
+    "author": "xcfio",
+    "homepage": "https://github.com/xcfio/command-ts#readme",
     "main": "out/index.js",
-    "types": "out/index.d.ts",
     "license": "MIT",
     "scripts": {
         "fmt": "prettier --config=../../.prettierrc --write src/",
@@ -12,11 +13,25 @@
         "test": "tsc --noEmit",
         "dev": "tsc --watch"
     },
+    "keywords": [
+        "discord",
+        "discord.js",
+        "command-ts"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/xcfio/command-ts"
+    },
+    "bugs": {
+        "url": "https://github.com/xcfio/command-ts/issues",
+        "email": "omarfaruksxp@gmail.com"
+    },
     "publishConfig": {
-        "access": "public"
+        "access": "public",
+        "tag": "latest"
     },
     "devDependencies": {
-        "@types/node": "^25.0.0",
-        "typescript": "^5.7.2"
+        "@types/node": "^25.0.3",
+        "typescript": "^5.9.3"
     }
 }
