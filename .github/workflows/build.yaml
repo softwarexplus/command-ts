@@ -50,8 +50,17 @@ jobs:
                   for dir in packages/*/; do
                     if [ -f "$dir/package.json" ]; then
                       cd "$dir"
+                      PACKAGE_NAME=$(node -p "require('./package.json').name")
                       CURRENT_VERSION=$(node -p "require('./package.json').version")
                       DEV_VERSION="${CURRENT_VERSION}-${{ steps.version.outputs.DEV_VERSION }}"
+                      
+                      # Get all dev versions and deprecate them
+                      echo "Deprecating old dev versions of $PACKAGE_NAME..."
+                      npm view "$PACKAGE_NAME" versions --json | jq -r '.[]' | grep -E 'dev\.[0-9]+' | while read -r old_version; do
+                        echo "Deprecating $PACKAGE_NAME@$old_version"
+                        npm deprecate "$PACKAGE_NAME@$old_version" "Deprecated - use latest dev version" || true
+                      done
+                      
                       echo "Publishing $dir with version $DEV_VERSION..."
                       npm version "$DEV_VERSION" --no-git-tag-version
                       pnpm publish --provenance --no-git-checks --tag dev || true
