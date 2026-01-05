@@ -1,16 +1,22 @@
 name: Dev Build
 
 on:
-    push:
+    workflow_dispatch:
+    workflow_run:
+        workflows: ["Test"]
+        types:
+            - completed
         branches:
             - "**"
-        paths-ignore:
-            - "**.md"
-            - "LICENSE"
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
 
 jobs:
     build:
         runs-on: ubuntu-latest
+        if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
 
         permissions:
             contents: read
@@ -49,6 +55,7 @@ jobs:
                       echo "Publishing $dir with version $DEV_VERSION..."
                       npm version "$DEV_VERSION" --no-git-tag-version
                       pnpm publish --provenance --no-git-checks --tag dev || true
+                      echo "==========================================================================="
                       cd ../..
                     fi
                   done
