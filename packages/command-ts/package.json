@@ -32,7 +32,7 @@
     },
     "dependencies": {
         "colorette": "^2.0.20",
-        "lodash": "^4.17.21"
+        "lodash": "^4.17.23"
     },
     "devDependencies": {
         "@types/lodash": "^4.17.23",
