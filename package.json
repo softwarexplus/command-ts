@@ -10,7 +10,7 @@
         "fmt": "turbo run fmt"
     },
     "devDependencies": {
-        "@types/node": "^25.0.9",
+        "@types/node": "^25.0.10",
         "turbo": "^2.7.5",
         "typescript": "^5.9.3"
     }

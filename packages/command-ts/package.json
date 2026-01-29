@@ -36,7 +36,7 @@
     },
     "devDependencies": {
         "@types/lodash": "^4.17.23",
-        "@types/node": "^25.0.9",
+        "@types/node": "^25.0.10",
         "discord.js": "^14.25.1",
         "typescript": "^5.9.3"
     }
