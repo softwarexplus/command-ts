@@ -31,7 +31,7 @@
         "tag": "latest"
     },
     "devDependencies": {
-        "@types/node": "^25.1.0",
+        "@types/node": "^25.2.2",
         "typescript": "^5.9.3"
     }
 }
