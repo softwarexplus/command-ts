@@ -38,6 +38,6 @@
         "@types/lodash": "^4.17.24",
         "@types/node": "^26.1.1",
         "discord.js": "^14.26.4",
-        "typescript": "^6.0.3"
+        "typescript": "^7.0.2"
     }
 }
